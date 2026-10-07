@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>РЕСНИЧКА — сеть студий взгляда | Тюмень • 14 филиалов</title>
+<meta name="description" content="Ресничка — 14 студий наращивания ресниц в Тюмени. 4.9 на 2ГИС. Новым до 2D за 1500₽. Ким, Аниме, Стрелка, Мокрый. Ежедневно 09:00-22:00">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700;900&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0C0B;--cream:#F6EFE6;--pink:#FF4D7E;--lime:#D8FF3E;--card:#171413;--line:rgba(246,239,230,.14);--r:22px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Manrope',sans-serif;overflow-x:hidden}
+::selection{background:var(--lime);color:#000}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+img[src=""]{display:none}
+/* прогресс скролла */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--lime),var(--pink));z-index:1200}
+/* шум */
+.noise{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* курсор */
+.cursor,.cursor-ring{position:fixed;left:0;top:0;pointer-events:none;border-radius:50%;z-index:1300;opacity:0;transition:opacity .4s}
+.cursor{width:20px;height:20px;background:var(--lime);mix-blend-mode:difference}
+.cursor-ring{width:44px;height:44px;border:1px solid rgba(216,255,62,.6)}
+@media(hover:none){.cursor,.cursor-ring{display:none}}
+/* сплэш: прячется САМ через CSS даже если JS мёртв */
+#splash{position:fixed;inset:0;background:#080707;z-index:2000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:pointer;animation:splashOut .55s ease 1.15s forwards}
+@keyframes splashOut{to{opacity:0;visibility:hidden}}
+#splash.hide{opacity:0;visibility:hidden;transition:.45s}
+.splash-eye{font-size:64px;animation:blink 1.1s infinite}
+@keyframes blink{0%,88%,100%{transform:scaleY(1)}45%{transform:scaleY(.1)}}
+.splash-word{font-family:'Unbounded';font-weight:900;font-size:clamp(26px,5vw,48px);letter-spacing:.02em}
+.splash-bar{width:min(300px,66vw);height:2px;background:#262626;border-radius:99px;overflow:hidden}
+.splash-bar i{display:block;height:100%;width:0;background:var(--lime);animation:fill 1.05s linear forwards}
+@keyframes fill{to{width:100%}}
+.splash-hint{font-size:11px;letter-spacing:.2em;color:#777;text-transform:uppercase}
+/* nav */
+nav{position:fixed;top:14px;left:14px;right:14px;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:11px 12px 11px 20px;background:rgba(14,12,11,.75);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:99px}
+.logo{font-family:'Unbounded';font-weight:900;font-size:18px}.logo i{color:var(--pink);font-style:normal}
+.nav-links{display:flex;gap:20px;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.9}
+.nav-links a{position:relative;padding:4px 0}.nav-links a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime);transition:.25s}
+.nav-links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:#000;font-weight:800;padding:13px 22px;border-radius:99px;border:0;font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap;font-family:inherit}
+.btn.pink{background:var(--pink);color:#fff}.btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+.btn:active{transform:scale(.96)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+/* hero */
+.hero{min-height:100svh;padding:112px 20px 20px;display:grid;grid-template-columns:1.12fr .88fr;gap:16px;max-width:1360px;margin:0 auto;position:relative}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;z-index:0}
+.b1{width:480px;height:480px;background:rgba(255,77,126,.33);top:-120px;left:-120px}
+.b2{width:520px;height:520px;background:rgba(138,124,255,.27);bottom:-200px;right:-100px}
+.hero-left{background:var(--cream);color:#111;border-radius:28px;padding:36px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;z-index:1}
+.hero-left::after{content:'РЕСНИЧКА';position:absolute;bottom:-18px;left:-6px;font-family:'Unbounded';font-weight:900;font-size:clamp(58px,8.5vw,118px);line-height:1;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(0,0,0,.11);pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.dot{width:8px;height:8px;background:#3DFF88;border-radius:50%}
+h1{font-family:'Unbounded';font-weight:900;line-height:.92;letter-spacing:-.03em;font-size:clamp(40px,6vw,78px);margin:18px 0 14px}
+h1 .h-line{display:block;overflow:hidden}
+h1 em{font-family:'Playfair Display';font-weight:500;font-style:italic;color:var(--pink)}
+.sub{font-size:16.5px;line-height:1.55;max-width:500px;opacity:.75}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;position:relative;z-index:2}
+.hero-meta{display:flex;gap:26px;margin-top:26px;position:relative;z-index:2;flex-wrap:wrap}
+.hero-meta b{font-family:'Unbounded';font-size:26px;display:block}
+.hero-meta span{font-size:11.5px;opacity:.6;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.lash-svg{width:100%;height:46px;margin-top:14px}
+.lash-svg path{stroke:#111;stroke-width:2.5;fill:none;stroke-linecap:round}
+.hero-right{display:flex;flex-direction:column;gap:16px;z-index:1}
+.hero-photo{flex:1;border-radius:28px;overflow:hidden;position:relative;min-height:440px;background:#222}
+.hero-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.7))}
+.photo-tag{position:absolute;z-index:2;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:11px 13px;color:#fff}
+.tag1{top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tag2{bottom:14px;left:14px;right:14px;display:flex;gap:12px;align-items:center}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--lime);display:grid;place-items:center;font-weight:900;color:#000;flex-shrink:0}
+.mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini{border-radius:22px;padding:20px}
+.mini.m1{background:var(--pink);color:#fff}.mini.m2{background:var(--lime);color:#111}
+.mini h3{font-family:'Unbounded';font-size:17px;line-height:1.15}.mini p{font-size:13.5px;margin-top:8px;opacity:.85}
+/* marquee на чистом CSS — работает без JS */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:13px 0;background:#000}
+.marquee-track{display:inline-flex;gap:34px;font-family:'Unbounded';font-size:14px;letter-spacing:.08em;text-transform:uppercase;animation:mq 22s linear infinite;will-change:transform}
+@keyframes mq{to{transform:translateX(-33.333%)}}
+.marquee b{color:var(--lime)}
+/* секции */
+section{max-width:1360px;margin:0 auto;padding:64px 20px 8px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:24px;flex-wrap:wrap}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);font-weight:800}
+h2{font-family:'Unbounded';font-size:clamp(28px,4vw,50px);line-height:.95;letter-spacing:-.02em;margin-top:10px}
+h2 i{color:var(--pink);font-family:'Playfair Display';font-weight:500}
+/* reveal: по умолчанию ВСЁ ВИДНО; прячем только если есть .js */
+.js .reveal{opacity:0;transform:translateY(30px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+/* эффекты */
+.eff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.eff{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.eff:hover{transform:translateY(-6px);border-color:var(--lime)}
+.eff img{width:100%;height:170px;object-fit:cover;border-radius:14px;margin-bottom:13px;background:#222}
+.eff h3{font-family:'Unbounded';font-size:15.5px}
+.eff p{font-size:13.5px;opacity:.65;margin:8px 0 12px;line-height:1.5}
+.price{font-family:'Unbounded';font-weight:700;color:var(--lime);font-size:14px}
+.eff .num{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.6);font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.2)}
+/* квиз+прайс */
+.duo{display:grid;grid-template-columns:.95fr 1.05fr;gap:14px;margin-top:8px}
+.quiz{background:linear-gradient(135deg,#1E1A18,#2A1140 70%,#3A0F4A);border:1px solid var(--line);border-radius:28px;padding:28px;position:relative;overflow:hidden}
+.q-progress{height:4px;background:rgba(255,255,255,.12);border-radius:99px;margin:14px 0;overflow:hidden}
+.q-progress i{display:block;height:100%;width:33%;background:var(--lime);border-radius:99px;transition:width .4s}
+.q-step{display:none}.q-step.active{display:block}
+.opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#fff;padding:14px 16px;border-radius:14px;margin-top:10px;cursor:pointer;font-weight:700;font-size:14.5px;font-family:inherit;transition:.2s}
+.opt:hover{background:var(--lime);color:#000;border-color:var(--lime)}
+.quiz-result{background:var(--lime);color:#000;border-radius:18px;padding:18px;margin-top:14px;display:none}
+.price-box{background:var(--cream);color:#111;border-radius:28px;padding:26px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.tab{padding:9px 15px;border-radius:99px;border:1.5px solid #111;background:transparent;font-weight:800;font-size:12px;cursor:pointer;text-transform:uppercase;font-family:inherit}
+.tab.active{background:#111;color:var(--lime)}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px dashed rgba(0,0,0,.2)}
+.prow b{font-size:14.5px}.prow small{display:block;opacity:.6;font-weight:500;font-size:12.5px}
+.prow .p{font-family:'Unbounded';font-weight:700;white-space:nowrap;background:#111;color:#fff;padding:8px 13px;border-radius:99px;font-size:12.5px}
+/* до/после */
+.ba{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
+.ba-view{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:#000;user-select:none;touch-action:none}
+.ba-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba-after{filter:saturate(1.4) contrast(1.12)}
+.ba-handle{position:absolute;top:0;bottom:0;width:2px;background:var(--lime);left:50%;pointer-events:none}
+.ba-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--lime);color:#000;font-weight:900;font-size:12px;padding:8px 14px;border-radius:99px;white-space:nowrap;pointer-events:none}
+/* шаги */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px}
+.step{background:linear-gradient(180deg,#1D1A18,#131111);border:1px solid var(--line);border-radius:20px;padding:20px}
+.step b{font-family:'Unbounded';font-size:36px;color:transparent;-webkit-text-stroke:1.2px var(--lime);display:block}
+.step h4{font-family:'Unbounded';font-size:13.5px;margin:10px 0 6px}
+.step p{font-size:13px;opacity:.65;line-height:1.55}
+/* мастера */
+.masters{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.m-card{background:#fff;color:#111;border-radius:22px;overflow:hidden;transition:transform .25s}
+.m-card:hover{transform:translateY(-6px)}
+.m-card img{height:250px;width:100%;object-fit:cover;background:#ddd}
+.m-card div{padding:15px}
+.m-card b{font-family:'Unbounded';font-size:13.5px}
+.m-card span{font-size:12.5px;opacity:.6;line-height:1.5;display:block;margin-top:6px}
+.stars{color:#E8A800;font-size:13px;letter-spacing:2px}
+/* отзывы */
+.rev-wrap{display:grid;grid-template-columns:300px 1fr;gap:14px}
+.rate-card{background:var(--lime);color:#000;border-radius:22px;padding:24px;text-align:center}
+.rate-card b{font-family:'Unbounded';font-size:60px;line-height:1}
+.rev-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.rev-btns{display:flex;gap:8px}
+.rbtn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:transparent;color:#fff;font-size:18px;cursor:pointer}
+.rbtn:hover{border-color:var(--lime);color:var(--lime)}
+.rev-slider{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+.rev-slider::-webkit-scrollbar{display:none}
+.rev{min-width:290px;max-width:330px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;scroll-snap-align:start}
+.rev p{font-size:14px;line-height:1.6}.rev small{opacity:.6;font-size:12px}
+/* faq без JS-замеров */
+.faq{display:grid;gap:10px;margin-top:6px}
+.f-item{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.f-q{width:100%;background:none;border:0;color:var(--cream);text-align:left;padding:17px 18px;font-weight:800;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;font-family:inherit}
+.f-a{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.f-item.open .f-a{max-height:300px}
+.f-a p{padding:0 18px 18px;font-size:14px;opacity:.7;line-height:1.6}
+/* запись */
+.book{background:linear-gradient(135deg,var(--pink),#8A1AFF 70%);border-radius:32px;padding:clamp(26px,4.5vw,54px);display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:center;margin-top:28px;position:relative;overflow:hidden}
+.book h2{color:#fff}.book p.lead{color:#fff;opacity:.9;margin:14px 0;line-height:1.6}
+.form{background:#fff;color:#111;border-radius:20px;padding:20px;position:relative;z-index:2}
+.form input,.form select{width:100%;padding:13px;border-radius:12px;border:1.5px solid #ddd;margin-top:10px;font-size:15px;font-family:inherit}
+.form input:focus{border-color:var(--pink);outline:none}
+.form button{width:100%;margin-top:12px;justify-content:center}
+/* контакты */
+.contacts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px}
+.c h4{font-family:'Unbounded';font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+footer{max-width:1360px;margin:18px auto 0;padding:18px 20px 90px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;opacity:.6;font-size:13px}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:600;display:none;gap:10px}
+.sticky a{flex:1;justify-content:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;z-index:900;padding:20px}
+.modal.open{display:grid}
+.modal-box{background:var(--cream);color:#111;border-radius:24px;padding:26px;max-width:420px;width:100%;text-align:center}
+.mobile-menu{position:fixed;inset:0;background:#060505;z-index:800;display:none;flex-direction:column;gap:16px;padding:76px 26px;font-family:'Unbounded';font-size:24px}
+.mobile-menu.open{display:flex}
+@media(max-width:1020px){.hero{grid-template-columns:1fr}.nav-links{display:none}.burger{display:block}.eff-grid,.masters,.steps{grid-template-columns:1fr 1fr}.duo,.rev-wrap,.book,.contacts,.ba{grid-template-columns:1fr}}
+@media(max-width:600px){.eff-grid,.masters,.steps{grid-template-columns:1fr}.hero-left{padding:22px}.mini-cards{grid-template-columns:1fr}.sticky{display:flex}nav .btn{padding:11px 14px;font-size:12px}}
+/* доступность и комплаенс */
+.skip{position:fixed;top:-70px;left:12px;z-index:3000;background:var(--lime);color:#000;font-weight:800;padding:10px 16px;border-radius:12px;transition:top .2s}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+.btn.pink{background:#C81A52}
+.hero-left em{color:#B3134A}
+.splash-hint{color:#999}
+footer{opacity:.8}
+.step p,.f-a p{opacity:.85}
+.rev small{opacity:.78}
+.agree{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;margin-top:12px;line-height:1.5}
+.agree input{width:18px;height:18px;margin-top:1px;flex-shrink:0;accent-color:#C81A52}
+.agree a{color:#C81A52;font-weight:700}
+.cookie{position:fixed;left:12px;right:12px;bottom:12px;z-index:950;background:#161211;border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:none;gap:12px;align-items:center;box-shadow:0 20px 60px rgba(0,0,0,.55);max-width:880px;margin:0 auto}
+.cookie.show{display:flex}
+.cookie p{font-size:13px;line-height:1.55;opacity:.9}
+.cookie p a{color:var(--lime);font-weight:700}
+.cookie-btns{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.legal-links{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.legal-links a,.legal-links button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
+@media(max-width:640px){.cookie{flex-direction:column;align-items:stretch}.cookie-btns .btn{flex:1;justify-content:center}}
+</style>
+<noscript><style>#splash{display:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#effects">Перейти к содержимому</a>
+<div id="progress"></div>
+<div class="noise"></div>
+<div class="cursor" id="cur"></div><div class="cursor-ring" id="curR"></div>
+
+<div id="splash" title="Нажми, чтобы пропустить"><div class="splash-eye">👁️</div><div class="splash-word">РЕСНИЧКА</div><div class="splash-bar"><i></i></div><div class="splash-hint">Тюмень • загрузка взгляда</div></div>
+
+<nav><div class="logo">РЕСНИЧКА<i>.</i></div>
+<div class="nav-links"><a href="#effects">Эффекты</a><a href="#price">Цены</a><a href="#masters">Мастера</a><a href="#reviews">Отзывы</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a></div>
+<div style="display:flex;gap:8px;align-items:center"><a class="btn" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Записаться • 1500₽</a><button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mmenu">☰</button></div></nav>
+<div class="mobile-menu" id="mmenu"><button id="mclose" style="background:none;border:0;color:#fff;font-size:30px;text-align:right;cursor:pointer">✕</button>
+<a href="#effects">Эффекты</a><a href="#price">Цены</a><a href="#masters">Мастера</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a>
+<a class="btn" href="https://dikidi.net/1792331?p=0.pi" rel="noopener">Записаться • 1500₽</a></div>
+
+<div class="hero">
+<div class="blob b1" id="blob1"></div><div class="blob b2" id="blob2"></div>
+<div class="hero-left" id="heroLeft">
+<div><span class="badge"><span class="dot"></span> Тюмень • 14 студий • 4.9 на 2ГИС</span>
+<h1 id="h1"><span class="h-line"><span>ВЗГЛЯД,</span></span><span class="h-line"><span>КОТОРЫЙ <em>не надо</em></span></span><span class="h-line"><span>КРАСИТЬ</span></span></h1>
+<p class="sub">Сеть «Ресничка». От 40 минут, носка от 6 недель. Новым — <b>всё до 2D за 1500₽</b>. Тренды 2026: Ким, Аниме, Стрелка, Мокрый.</p>
+<svg class="lash-svg" viewBox="0 0 400 46" fill="none" aria-hidden="true"><path id="lashPath" d="M10 32 Q 80 8 150 22 T 290 20 Q 340 18 390 30 M60 22 q4 -10 10 -12 M110 16 q5 -9 11 -11 M160 18 q5 -9 12 -10 M210 19 q5 -9 12 -9 M260 19 q5 -8 12 -8 M310 21 q5 -7 11 -6"/></svg>
+<div class="hero-cta"><a class="btn pink" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">📅 Записаться онлайн</a><a class="btn" style="background:#111;color:#fff" href="#price">Смотреть прайс</a></div></div>
+<div class="hero-meta"><div><b><span data-count="14">14</span></b><span>филиалов</span></div><div><b><span data-count="4.9" data-dec="1">4,9</span> ★</b><span>49 оценок 2ГИС</span></div><div><b>09–22</b><span>ежедневно</span></div><div><b>40 мин</b><span>экспресс</span></div></div>
+</div>
+<div class="hero-right">
+<div class="hero-photo" id="heroPhoto">
+<img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=900&auto=format&fit=crop" alt="Взгляд с наращиванием" onerror="this.style.display='none'">
+<div class="photo-tag tag1"><span style="font-weight:800;font-size:12.5px">🔥 ТРЕНД: СТРЕЛОЧКА + КИМ</span><span style="background:#D8FF3E;color:#000;font-weight:900;padding:6px 11px;border-radius:99px;font-size:12.5px">от 2700₽</span></div>
+<div class="photo-tag tag2"><div class="avatar">В</div><div style="font-size:12.5px;line-height:1.4"><b>Валентина — мастер</b><br>«ношу 2 месяца» — цитата из отзыва в 2ГИС</div></div>
+</div>
+<div class="mini-cards"><div class="mini m1"><h3>LED-наращивание</h3><p>Полимеризация клея светом: по данным производителей — меньше испарений. Подходит не всем, уточняйте у мастера.</p></div><div class="mini m2"><h3>Одесская 52а, 210</h3><p>Флагман: 2 этаж, 2 мин от медуниверситета.</p></div></div>
+</div>
+</div>
+
+<div class="marquee"><div class="marquee-track" id="mq"><span>КЛАССИКА 1500₽ ✦</span><span><b>2D НОВЫМ 1500₽</b> ✦</span><span>МОКРЫЙ ЭФФЕКТ ✦</span><span>КИМ • КАЙЛИ • АНИМЕ ✦</span><span>СТРЕЛОЧКА 2700₽ ✦</span><span>3D — 2400₽ ✦</span><span>14 ФИЛИАЛОВ ✦</span><span>4.9 ★ 2ГИС ✦</span><span>КЛАССИКА 1500₽ ✦</span><span><b>2D НОВЫМ 1500₽</b> ✦</span><span>МОКРЫЙ ЭФФЕКТ ✦</span><span>КИМ • КАЙЛИ • АНИМЕ ✦</span><span>СТРЕЛОЧКА 2700₽ ✦</span><span>3D — 2400₽ ✦</span><span>14 ФИЛИАЛОВ ✦</span><span>4.9 ★ 2ГИС ✦</span></div></div>
+
+<section id="effects"><div class="sec-head reveal"><div><div class="kicker">/ 01 — эффекты</div><h2>Не «просто ресницы»,<br>а <i>твой характер</i></h2></div><a class="btn ghost" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Подобрать со стилистом</a></div>
+<div class="eff-grid">
+<div class="eff reveal"><span class="num">01</span><img loading="lazy" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop" alt="Классика" onerror="this.style.display='none'"><h3>Классика</h3><p>1:1. Естественно, можно забыть про тушь.</p><span class="price">от 1500 ₽</span></div>
+<div class="eff reveal"><span class="num">02 • хит</span><img loading="lazy" src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=600&auto=format&fit=crop" alt="2D мокрый" onerror="this.style.display='none'"><h3>2D • Мокрый</h3><p>Двойной объём + влажный финиш. Новым — 1500₽.</p><span class="price">от 1500 ₽ новым*</span></div>
+<div class="eff reveal"><span class="num">03</span><img loading="lazy" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" alt="3D 4D" onerror="this.style.display='none'"><h3>3D / 4D</h3><p>Ярко и носибельно. Носка от 6 недель.</p><span class="price">от 2400 ₽</span></div>
+<div class="eff reveal"><span class="num">04 • тренд</span><img loading="lazy" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop" alt="Ким аниме" onerror="this.style.display='none'"><h3>Ким • Аниме • Кайли</h3><p>Рваный край, стрелка, маскара, барби, американка.</p><span class="price">от 3000 ₽</span></div>
+<div class="eff reveal"><h3>↗ Уголки</h3><p>Неполное наращивание. Натуральный лисий эффект.</p><span class="price">от 1400 ₽</span></div>
+<div class="eff reveal"><h3>➶ Стрелочка от 2D</h3><p>Вытягивает глаз. Замена подводке.</p><span class="price">от 2700 ₽</span></div>
+<div class="eff reveal"><h3>✦ 5-7D Голливуд</h3><p>Максимум drama. Центр внимания обеспечен.</p><span class="price">от 3000 ₽</span></div>
+<div class="eff reveal"><h3>♨ Лами + брови</h3><p>Ламинирование + окрашивание. Без наращивания.</p><span class="price">1500–1900 ₽</span></div>
+</div>
+<p style="opacity:.75;font-size:12.5px;margin-top:10px">* Акция и число студий — по данным карточки 2ГИС. ИП Кинзябулатова А.М. Не оферта.</p></section>
+
+<section id="price"><div class="sec-head reveal"><div><div class="kicker">/ 02 — подбор + прайс</div><h2>Собери <i>свой взгляд</i> за 20 сек</h2></div></div>
+<div class="duo">
+<div class="quiz reveal"><div class="kicker">подбор • тест</div><h3 style="font-family:Unbounded;margin:10px 0 4px;font-size:20px">Что тебе ближе?</h3>
+<div class="q-progress"><i id="qbar"></i></div>
+<div class="q-step active" data-q="1"><p>1/3 • Какой вайб?</p><button class="opt" data-v="classic">Натурально, чтоб никто не понял</button><button class="opt" data-v="wet">Заметно, но стильно</button><button class="opt" data-v="trend">Дерзко, как у блогеров</button></div>
+<div class="q-step" data-q="2"><p>2/3 • Сколько носить?</p><button class="opt" data-v="a">3–4 недели и обновить</button><button class="opt" data-v="b">6+ недель железобетонно</button></div>
+<div class="q-step" data-q="3"><p>3/3 • Красишься каждый день?</p><button class="opt" data-v="x">Да, стрелки — моё</button><button class="opt" data-v="y">Нет, встала и пошла</button></div>
+<div class="quiz-result" id="qres"></div></div>
+<div class="price-box reveal"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 style="font-family:Unbounded;font-size:18px">Прайс • Тюмень</h3><span style="font-size:11px;background:#111;color:#fff;padding:6px 11px;border-radius:99px">04.08.2025 • 2ГИС</span></div>
+<div class="tabs"><button class="tab active" data-t="all">Все</button><button class="tab" data-t="nat">Натуральные</button><button class="tab" data-t="wow">Яркие</button><button class="tab" data-t="lam">Лами</button></div>
+<div id="plist">
+<div class="prow" data-c="nat"><div><b>Классика</b><small>1:1, можно без туши</small></div><span class="p">от 1500 ₽</span></div>
+<div class="prow" data-c="nat"><div><b>Уголки</b><small>лисий эффект лайт</small></div><span class="p">от 1400 ₽</span></div>
+<div class="prow" data-c="nat"><div><b>2D объём</b><small>новым — 1500₽!</small></div><span class="p">от 1700 ₽</span></div>
+<div class="prow" data-c="nat"><div><b>Мокрый от 2D</b><small>влажный блеск</small></div><span class="p">от 1700 ₽</span></div>
+<div class="prow" data-c="wow"><div><b>3D объём</b><small>ярко, но носибельно</small></div><span class="p">от 2400 ₽</span></div>
+<div class="prow" data-c="wow"><div><b>4D + Стрелочка</b><small>носка от 6 недель</small></div><span class="p">от 2700 ₽</span></div>
+<div class="prow" data-c="wow"><div><b>5-7D Голливуд</b><small>максимум объёма</small></div><span class="p">от 3000 ₽</span></div>
+<div class="prow" data-c="wow"><div><b>Ким / Аниме / Кайли / Барби</b><small>рваный край, маскара</small></div><span class="p">от 3000 ₽</span></div>
+<div class="prow" data-c="lam"><div><b>Ламинирование</b><small>+ окрашивание</small></div><span class="p">1500–1900 ₽</span></div>
+<div class="prow" data-c="lam"><div><b>Лами + брови / LED</b><small>уточняй у мастера</small></div><span class="p">по запросу</span></div>
+</div><a class="btn" style="width:100%;justify-content:center;margin-top:14px" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Забронировать — Dikidi</a><p style="font-size:12px;opacity:.65;margin-top:10px">Цену фиксируем до начала процедуры — доплат и скрытых комиссий нет.</p></div>
+</div>
+<div class="ba reveal"><div><div class="kicker">до / после — потяни</div><h3 style="font-family:Unbounded;margin:8px 0">Один час = минус 20 минут макияжа каждое утро</h3><p style="opacity:.65;font-size:14px;line-height:1.6">Слева — без эффекта, справа — 2D мокрый. Двигай ползунок.</p><input type="range" id="baRange" min="0" max="100" value="50" style="width:100%;margin-top:12px;accent-color:#D8FF3E"></div>
+<div class="ba-view" id="baView"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" style="filter:grayscale(.9) brightness(.75)" alt="до" onerror="this.style.display='none'"><img id="baAfter" class="ba-after" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=800&auto=format&fit=crop" style="clip-path:inset(0 0 0 50%)" alt="после" onerror="this.style.display='none'"><div class="ba-handle" id="baHandle" style="left:50%"></div><div class="ba-knob" id="baKnob" style="left:50%">↔ тяни</div></div></div>
+</section>
+
+<section><div class="sec-head reveal"><div><div class="kicker">/ 03 — как всё проходит</div><h2>Лежишь. <i>Отдыхаешь.</i> Открываешь — вау</h2></div></div>
+<div class="steps"><div class="step reveal"><b>01</b><h4>Заявка 1 мин</h4><p>Dikidi или форма. Менеджер подберёт филиал рядом и окно.</p></div><div class="step reveal"><b>02</b><h4>Дизайн взгляда</h4><p>Изгиб, длина, эффект под твой глаз. Не навязываем лишнее.</p></div><div class="step reveal"><b>03</b><h4>40–120 мин релакса</h4><p>Мягкие кушетки, чай, тихо. Можно спать.</p></div><div class="step reveal"><b>04</b><h4>Носка 6+ недель</h4><p>Проверка работы, памятка по уходу и окно на коррекцию.</p></div></div></section>
+
+<section id="masters"><div class="sec-head reveal"><div><div class="kicker">/ 04 — мастера</div><h2>Руки как <i>крылья бабочки</i></h2></div><p style="max-width:340px;opacity:.6;font-size:13.5px">Цитата из отзыва. Ходи в любой филиал — все мастера в единой школе.</p></div>
+<div class="masters"><div class="m-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" alt="Влада" onerror="this.style.display='none'"><div><div class="stars">★★★★★</div><b>Влада / Владислава</b><span>Профи по изгибам. «Наконец нашла своего мастера»</span></div></div>
+<div class="m-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop" alt="Елена" onerror="this.style.display='none'"><div><div class="stars">★★★★★</div><b>Елена Ч.</b><span>Воздушные 3D/4D. Держатся долго, красиво.</span></div></div>
+<div class="m-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=600&auto=format&fit=crop" alt="Валентина" onerror="this.style.display='none'"><div><div class="stars">★★★★★</div><b>Валентина</b><span>Быстро и аккуратно. «Носка 2 месяца» — цитата из отзыва ♥</span></div></div>
+<div class="m-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=600&auto=format&fit=crop" alt="Самира" onerror="this.style.display='none'"><div><div class="stars">★★★★★</div><b>Самира</b><span>Аккуратно, носка месяц+. Комфорт и релакс.</span></div></div></div></section>
+
+<section id="reviews"><div class="sec-head reveal"><div><div class="kicker">/ 05 — отзывы 2гис</div><h2>4.9 — <i>говорят люди</i></h2></div><div class="rev-btns"><button class="rbtn" id="revPrev" aria-label="Назад">←</button><button class="rbtn" id="revNext" aria-label="Вперёд">→</button></div></div>
+<div class="rev-wrap"><div class="rate-card reveal"><b><span data-count="4.9" data-dec="1">4,9</span></b><div>★★★★★</div><p style="margin-top:8px;font-weight:800;font-size:14px">49 оценок • 31 отзыв<br>Тюмень • «Ресничка»</p><a class="btn" style="background:#000;color:#fff;margin-top:12px" href="https://go.2gis.com/5ywOl" target="_blank" rel="noopener">Читать в 2ГИС</a></div>
+<div class="rev-slider reveal" id="revSlider">
+<div class="rev"><p>«Аккуратно и быстро. Спасибо большое мастеру Валентине 🫶»</p><br><small>A’ — 2 июля 2026 • подтверждено</small></div>
+<div class="rev"><p>«Елена отличный мастер! Перепробовала много и остановилась на Лене»</p><br><small>Гузель Х. • подтверждено</small></div>
+<div class="rev"><p>«Была у Влады, реснички идеальны 😍 Наконец нашла своего мастера»</p><br><small>Евгения Ш. • 34 отзыва</small></div>
+<div class="rev"><p>«Делаю больше года, носка месяц+. Кушетки — релакс»</p><br><small>постоянный клиент • 5★</small></div>
+<div class="rev"><p>«Все мастера классные. Руки как крылья бабочки порхают»</p><br><small>Анна • все филиалы</small></div>
+<div class="rev"><p>«Чисто, уютно, быстро нашли время. Хожу уже год»</p><br><small>Екатерина Б. • 11 отзывов</small></div>
+<p style="font-size:12px;opacity:.7;margin-top:10px;max-width:1360px">Отзывы принадлежат их авторам, взяты из карточки организации в 2ГИС и сокращены. Полный текст — по кнопке «Читать в 2ГИС».</p>
+</div></div></section>
+
+<section id="faq"><div class="sec-head reveal"><div><div class="kicker">/ 06 — вопросы</div><h2>Спрашивали? <i>Отвечаем</i></h2></div></div>
+<div class="faq">
+<div class="f-item reveal"><button class="f-q">Это больно? <span>+</span></button><div class="f-a"><p>Нет. Лежишь с закрытыми глазами 40–120 минут. Большинство засыпает. LED-вариант ещё мягче для чувствительных глаз.</p></div></div>
+<div class="f-item reveal"><button class="f-q">Сколько держится? <span>+</span></button><div class="f-a"><p>Классика и 2D — 4–5 недель, 3D–4D — обычно от 6 недель. Точный срок зависит от ваших ресниц — спросите мастера.</p></div></div>
+<div class="f-item reveal"><button class="f-q">Что такое LED-наращивание? <span>+</span></button><div class="f-a"><p>Полимеризация клея светом вместо испарений. Производители заявляют меньше раздражения и более быструю полимеризацию; эффект индивидуален — спросите мастера, подойдёт ли вам.</p></div></div>
+<div class="f-item reveal"><button class="f-q">Можно в баню / с линзами? <span>+</span></button><div class="f-a"><p>Да, но первые 24ч без пара и масла. Линзы не мешают. Тушь не нужна — в этом и смысл.</p></div></div>
+<div class="f-item reveal"><button class="f-q">Сколько стоит первый раз? <span>+</span></button><div class="f-a"><p>Новым — всё до 2D за 1500₽. Дальше по прайсу 2ГИС от 1400₽ до 3000₽.</p></div></div>
+</div></section>
+
+<section id="booking"><div class="book reveal"><div><div class="kicker" style="color:#fff">/ 07 — запись за 1 минуту</div><h2>14 филиалов.<br>Подберём рядом.</h2><p class="lead">Флагман — Одесская 52а, 210 (2 этаж). Оставь заявку — предложим 3 ближайших окна в Telegram / Max. Или сразу в Dikidi.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Dikidi — время</a><a class="btn ghost" style="border-color:#fff;color:#fff" href="http://taplink.cc/resnichka.tyumen" target="_blank" rel="noopener">Все филиалы</a></div></div>
+<form class="form" id="leadForm"><h3 style="font-family:Unbounded;font-size:18px">Хочу за 1500₽ 🔥</h3><p style="font-size:13px;opacity:.6">Новым — всё до 2D за 1500₽</p><input required placeholder="Твоё имя" id="n" autocomplete="name"><input required placeholder="Телефон / Telegram" id="p" autocomplete="tel"><select id="s"><option>Классика / 2D — 1500₽ новым</option><option>3D — от 2400₽</option><option>4D / Стрелка — от 2700₽</option><option>Ким / Аниме / Тренд — от 3000₽</option><option>Лами — 1500-1900₽</option></select><label class="agree"><input type="checkbox" required id="agree"><span>Соглашаюсь на обработку персональных данных (<a href="privacy.html" target="_blank" rel="noopener">политика</a>) и подтверждаю, что мне есть 18 лет либо есть согласие родителя</span></label><button class="btn pink" type="submit">Записаться →</button><p style="font-size:11.5px;opacity:.6;margin-top:10px;text-align:center">Собираем только имя и контакт — для связи по записи. 09:00–22:00 • ответ ~15 мин</p></form></div></section>
+
+<section id="contacts"><div class="sec-head reveal"><div><div class="kicker">/ 08 — контакты</div><h2>Тюмень <i>вся наша</i></h2></div></div>
+<div class="contacts"><div class="c reveal"><h4>Флагман</h4><b>Одесская 52а, каб 210, 2 этаж</b><p style="opacity:.65;font-size:13.5px;margin-top:8px">КПД, Ленинский округ • 2 мин от Медуниверситета • парковка</p><p style="margin-top:10px;font-weight:800">Ежедневно 09:00–22:00 <span style="font-weight:500;opacity:.6">по записи</span></p></div>
+<div class="c reveal"><h4>Связь</h4><p><b>+7 (3452) 69-99-70</b></p><p style="margin-top:6px;font-size:14px">resnichka.tyumen@gmail.com</p><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><a class="btn ghost" href="https://vk.com/resnichka.tyumen" target="_blank" rel="noopener">VK</a><a class="btn ghost" href="https://t.me/+79504871277" target="_blank" rel="noopener">TG</a><a class="btn ghost" href="https://max.ru/id021901929900_bot" target="_blank" rel="noopener">MAX</a></div></div>
+<div class="c reveal"><h4>Сервис</h4><p style="font-size:13.5px;line-height:1.7">Наличные • Карта • QR<br>LED • Лами • Брови<br>Мягкие кушетки • Чай</p><a href="https://go.2gis.com/5ywOl" target="_blank" rel="noopener" style="color:var(--lime);font-weight:800">→ Открыть в 2ГИС</a></div></div></section>
+
+<footer><div>© 2026 РЕСНИЧКА • Тюмень • ИП Кинзябулатова Альфия Минирифовна<br>Одесская, 52а, каб. 210 • +7 (3452) 69-99-70 • resnichka.tyumen@gmail.com • 4.9 ★ 2ГИС</div><div class="legal-links"><a href="privacy.html">Конфиденциальность</a><span>•</span><a href="terms.html">Условия</a><span>•</span><a href="refund.html">Возврат</a><span>•</span><a href="cookies.html">Cookie</a><span>•</span><a href="privacy.html#delete">Удалить мои данные</a><span>•</span><button id="cookieOpen" type="button">Настройки cookie</button></div></footer>
+
+<div class="sticky"><a class="btn pink" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Записаться • 1500₽</a><a class="btn ghost" style="background:#111;border-color:#333" href="https://t.me/+79504871277" target="_blank" rel="noopener">TG</a></div>
+
+<div class="cookie" id="cookie" role="region" aria-label="Согласие на cookie"><p>Мы используем cookie только чтобы запомнить ваш выбор и чтобы сайт работал. Аналитики и рекламы нет. Подробнее — <a href="cookies.html">политика cookie</a>.</p><div class="cookie-btns"><button class="btn" id="cookieYes" type="button">Принять</button><button class="btn ghost" id="cookieNo" type="button">Только необходимые</button></div></div>
+
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"><div style="font-size:44px">💌</div><h3 style="font-family:Unbounded">Заявка улетела!</h3><p style="margin:10px 0" id="mtext"></p><a class="btn" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Выбрать время сразу</a><br><br><button class="btn ghost" style="color:#000;border-color:#000" id="mclose2">Закрыть</button></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script>
+(function(){
+"use strict";
+function A(fn){ try{ if(typeof anime!=="undefined"){ fn(anime); } }catch(e){} }
+/* 1. СПЛЭШ — три независимые страховки */
+var splash=document.getElementById('splash');
+var splashGone=false;
+function noSplash(){ if(splashGone)return; splashGone=true; if(splash){ splash.classList.add('hide'); setTimeout(function(){ splash.style.display='none'; },600);} }
+if(splash){ splash.addEventListener('click',noSplash); }
+setTimeout(noSplash,1700);
+window.addEventListener('load',function(){ setTimeout(noSplash,400); });
+/* 2. прогресс скролла */
+var prog=document.getElementById('progress');
+addEventListener('scroll',function(){ try{ var h=document.documentElement; var max=h.scrollHeight-h.clientHeight; prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%'; }catch(e){} },{passive:true});
+/* 3. reveal через observer + CSS (видно всегда, если JS/IO нет — всё равно видно) */
+try{
+var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+}catch(e){}
+/* 4. счётчики на ванилле */
+function count(el){ try{ var t=parseFloat(el.getAttribute('data-count')); var d=parseInt(el.getAttribute('data-dec')||'0',10); if(isNaN(t))return; var st=null; function f(ts){ if(!st)st=ts; var p=Math.min(1,(ts-st)/1400); el.textContent=(t*p).toFixed(d).replace('.',','); if(p<1)requestAnimationFrame(f); else el.textContent=t.toFixed(d).replace('.',','); } requestAnimationFrame(f);}catch(e){} }
+try{ var cio=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ count(en.target); cio.unobserve(en.target); } }); },{threshold:.4}); document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); }); }catch(e){}
+/* 5. anime-оживление hero (только украшение) */
+A(function(anime){
+  anime({targets:'#h1 .h-line > span',translateY:['110%','0%'],opacity:[0,1],duration:900,stagger:120,easing:'easeOutExpo'});
+  try{ var p=document.getElementById('lashPath'); var len=p.getTotalLength(); p.style.strokeDasharray=len; p.style.strokeDashoffset=len; anime({targets:p,strokeDashoffset:[len,0],duration:1600,easing:'easeInOutSine',delay:300}); }catch(e){}
+  anime({targets:'#blob1',translateX:[-30,40],translateY:[-10,50],scale:[1,1.2],duration:6000,direction:'alternate',loop:true,easing:'easeInOutSine'});
+  anime({targets:'#blob2',translateX:[20,-40],translateY:[10,-40],scale:[1,1.15],duration:7000,direction:'alternate',loop:true,easing:'easeInOutSine'});
+  anime({targets:'.photo-tag',translateY:[-5,5],duration:2300,direction:'alternate',loop:true,easing:'easeInOutSine'});
+});
+/* 6. курсор виден только после первого движения мыши */
+try{
+var cur=document.getElementById('cur'),ring=document.getElementById('curR');
+if(cur&&ring&&matchMedia('(hover:hover)').matches){
+var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,rx=mx,ry=my,shown=false;
+addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;if(!shown){shown=true;cur.style.opacity=1;ring.style.opacity=1;}},{passive:true});
+(function loop(){ cx+=(mx-cx)*.35; cy+=(my-cy)*.35; rx+=(mx-rx)*.14; ry+=(my-ry)*.14; cur.style.transform='translate('+(cx-10)+'px,'+(cy-10)+'px)'; ring.style.transform='translate('+(rx-22)+'px,'+(ry-22)+'px)'; requestAnimationFrame(loop); })();
+}
+}catch(e){}
+/* 8. квиз */
+try{
+var pick='';
+function qgo(n){ var cur=document.querySelector('.q-step.active'); var nxt=document.querySelector('[data-q="'+n+'"]'); if(!nxt)return; if(cur)cur.classList.remove('active'); nxt.classList.add('active'); var bar=document.getElementById('qbar'); if(bar)bar.style.width=(n*33)+'%'; A(function(anime){ anime({targets:nxt,translateX:[26,0],opacity:[0,1],duration:420,easing:'easeOutExpo'}); }); }
+document.querySelectorAll('[data-q="1"] .opt').forEach(function(b){ b.addEventListener('click',function(){ pick=b.getAttribute('data-v'); qgo(2); }); });
+document.querySelectorAll('[data-q="2"] .opt').forEach(function(b){ b.addEventListener('click',function(){ qgo(3); }); });
+document.querySelectorAll('[data-q="3"] .opt').forEach(function(b){ b.addEventListener('click',function(){ var r=document.getElementById('qres'); var t=''; if(pick==='classic')t='Тебе — <b>Классика / Уголки (1400–1500₽)</b>. Невидимый макияж.'; else if(pick==='wet')t='Тебе — <b>2D / Мокрый (новым 1500₽!)</b> или 3D за 2400₽. Золотая середина.'; else t='Тебе — <b>Ким / Аниме / Стрелка (2700–3000₽)</b>. Вау-эффект.'; r.innerHTML=t+'<br><br><a class="btn" style="background:#000;color:#D8FF3E" href="https://dikidi.net/1792331?p=0.pi" target="_blank" rel="noopener">Забить этот эффект →</a>'; r.style.display='block'; var bar=document.getElementById('qbar'); if(bar)bar.style.width='100%'; A(function(anime){ anime({targets:r,scale:[.92,1],opacity:[0,1],duration:500,easing:'easeOutBack'}); }); }); });
+}catch(e){}
+/* 9. табы прайса */
+try{
+document.querySelectorAll('.tab').forEach(function(t){ t.addEventListener('click',function(){ document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')}); t.classList.add('active'); var v=t.getAttribute('data-t'); var rows=document.querySelectorAll('#plist .prow'); var show=[]; rows.forEach(function(r){ var ok=(v==='all'||r.getAttribute('data-c')===v); r.style.display=ok?'flex':'none'; if(ok)show.push(r); }); A(function(anime){ anime({targets:show,opacity:[0,1],translateX:[-12,0],duration:400,stagger:50,easing:'easeOutExpo'}); }); }); });
+}catch(e){}
+/* 10. до/после — drag + range */
+try{
+var baR=document.getElementById('baRange'),baA=document.getElementById('baAfter'),baH=document.getElementById('baHandle'),baK=document.getElementById('baKnob'),baV=document.getElementById('baView');
+function baSet(v){ v=Math.max(0,Math.min(100,v)); if(baA)baA.style.clipPath='inset(0 0 0 '+v+'%)'; if(baH)baH.style.left=v+'%'; if(baK)baK.style.left=v+'%'; if(baR)baR.value=v; }
+if(baR){ baR.addEventListener('input',function(){ baSet(parseFloat(baR.value)); }); }
+if(baV){ var drag=false; function pos(e){ var r=baV.getBoundingClientRect(); var x=(e.touches&&e.touches[0]?e.touches[0].clientX:e.clientX); return (x-r.left)/r.width*100; } baV.addEventListener('pointerdown',function(e){drag=true;baSet(pos(e));try{baV.setPointerCapture(e.pointerId)}catch(err){}}); baV.addEventListener('pointermove',function(e){ if(drag)baSet(pos(e)); }); addEventListener('pointerup',function(){drag=false;}); }
+}catch(e){}
+/* 11. отзывы */
+try{
+var sl=document.getElementById('revSlider');
+document.getElementById('revPrev').addEventListener('click',function(){ sl.scrollBy({left:-320,behavior:'smooth'}); });
+document.getElementById('revNext').addEventListener('click',function(){ sl.scrollBy({left:320,behavior:'smooth'}); });
+}catch(e){}
+/* 12. faq на CSS-классах */
+try{
+document.querySelectorAll('.f-item').forEach(function(item){ var btn=item.querySelector('.f-q'); btn.setAttribute('aria-expanded','false'); btn.addEventListener('click',function(){ var was=item.classList.contains('open'); document.querySelectorAll('.f-item.open').forEach(function(o){ o.classList.remove('open'); o.querySelector('.f-q span').textContent='+'; o.querySelector('.f-q').setAttribute('aria-expanded','false'); }); if(!was){ item.classList.add('open'); btn.querySelector('span').textContent='—'; btn.setAttribute('aria-expanded','true'); } }); });
+}catch(e){}
+/* 13. форма + модалка */
+try{
+var modal=document.getElementById('modal'),mbox=document.getElementById('modalBox');
+document.getElementById('leadForm').addEventListener('submit',function(e){ e.preventDefault(); var n=document.getElementById('n').value.trim()||'Красотка'; document.getElementById('mtext').textContent=n+', принято! Менеджер напишет в течение ~15 минут (09–22). Пока можешь выбрать время в Dikidi.'; modal.classList.add('open'); try{document.getElementById('mclose2').focus()}catch(e){} A(function(anime){ anime({targets:mbox,scale:[.8,1],opacity:[0,1],translateY:[24,0],duration:500,easing:'easeOutBack'}); }); });
+function closeM(){ modal.classList.remove('open'); }
+document.getElementById('mclose2').addEventListener('click',closeM);
+modal.addEventListener('click',function(e){ if(e.target===modal)closeM(); });
+addEventListener('keydown',function(e){ if(e.key==='Escape'&&modal.classList.contains('open'))closeM(); });
+}catch(e){}
+/* 13.5 cookie-баннер: отказ так же прост, как согласие */
+try{
+var cb=document.getElementById('cookie');
+function cget(){ try{return localStorage.getItem('resh_cookie')}catch(e){return 'x'} }
+function cset(v){ try{localStorage.setItem('resh_cookie',v)}catch(e){} if(cb)cb.classList.remove('show'); }
+if(cb){ if(!cget()){ setTimeout(function(){ if(!cget())cb.classList.add('show'); },1400); }
+document.getElementById('cookieYes').addEventListener('click',function(){ cset('all'); });
+document.getElementById('cookieNo').addEventListener('click',function(){ cset('min'); });
+var co=document.getElementById('cookieOpen'); if(co)co.addEventListener('click',function(){ cb.classList.add('show'); }); }
+}catch(e){}
+/* 14. меню */
+try{
+var mm=document.getElementById('mmenu');
+document.getElementById('burger').addEventListener('click',function(){ mm.classList.add('open'); try{document.getElementById('burger').setAttribute('aria-expanded','true')}catch(e){} A(function(anime){ anime({targets:'#mmenu a, #mmenu button',translateX:[36,0],opacity:[0,1],duration:450,stagger:60,easing:'easeOutExpo'}); }); });
+document.getElementById('mclose').addEventListener('click',function(){ mm.classList.remove('open'); try{document.getElementById('burger').setAttribute('aria-expanded','false')}catch(e){} });
+mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ mm.classList.remove('open'); }); });
+}catch(e){}
+})();
+</script>
+</body>
+</html>

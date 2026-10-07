@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Политика cookie — РЕСНИЧКА</title>
+<meta name="description" content="Какие cookie использует сайт Ресничка и как ими управлять.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#0E0C0B;color:#F6EFE6;line-height:1.65}
+.wrap{max-width:780px;margin:0 auto;padding:90px 20px 60px}
+a{color:#D8FF3E}
+.top{position:fixed;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;background:rgba(14,12,11,.85);border:1px solid rgba(246,239,230,.14);border-radius:99px;padding:10px 18px;backdrop-filter:blur(12px)}
+h1{font-size:clamp(24px,4vw,38px);margin:10px 0 6px}
+h2{font-size:18px;margin:28px 0 8px;color:#D8FF3E}
+p,li{font-size:15px;opacity:.92}
+ul{padding-left:22px;margin:8px 0}
+.meta{opacity:.6;font-size:13px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+td,th{border:1px solid rgba(246,239,230,.2);padding:8px 10px;text-align:left;vertical-align:top}
+.card{background:#171413;border:1px solid rgba(246,239,230,.14);border-radius:16px;padding:18px;margin-top:16px}
+.btn{display:inline-block;background:#D8FF3E;color:#000;font-weight:800;padding:12px 22px;border-radius:99px;text-decoration:none;border:0;cursor:pointer;font:inherit;margin-top:10px}
+:focus-visible{outline:3px solid #D8FF3E;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="top"><b>РЕСНИЧКА.</b><a href="index.html">← На главную</a></div>
+<div class="wrap">
+<p class="meta">Обновлено: 7 октября 2026 • Тюмень</p>
+<h1>Политика cookie</h1>
+<p>Коротко: сайт ставит <b>минимум</b> — только запоминание вашего выбора в баннере. Счётчиков, рекламы и трекеров нет.</p>
+
+<h2>1. Что храним мы</h2>
+<table>
+<tr><th>Название</th><th>Где</th><th>Что</th><th>Срок</th></tr>
+<tr><td><i>resh_cookie</i></td><td>localStorage вашего браузера</td><td>Ваш выбор: «all» или «min»</td><td>Пока не очистите браузер</td></tr>
+</table>
+<p>Это технически необходимые данные (ч. 2 ст. 18 152-ФЗ, п. 3.2 Руководства РКН по cookie): баннер не спрашивает дважды.</p>
+
+<h2>2. Сторонние сервисы</h2>
+<ul>
+<li><b>Google Fonts / cdnjs / Unsplash</b> — отдают шрифты, библиотеку и картинки. Cookie не устанавливают, историю не ведут; видят только IP в момент загрузки (как любой сайт в интернете).</li>
+<li><b>Dikidi, VK, Telegram, Max, 2ГИС</b> — срабатывают, только когда вы сами переходите по ссылкам. Там действуют их собственные политики cookie.</li>
+<li>Мы не встраиваем YouTube, карты, чаты и пиксели — именно чтобы не тянуть чужие трекеры.</li>
+</ul>
+
+<h2>3. Как отказаться / удалить</h2>
+<ul>
+<li>Кнопка «Только необходимые» в баннере — сайт продолжит работать полностью.</li>
+<li>Удалить выбор: очистите localStorage/cookie сайта в настройках браузера.</li>
+<li>Или нажмите кнопку ниже — она сотрёт выбор и покажет баннер заново:</li>
+</ul>
+<div class="card">
+<button class="btn" id="reset" type="button">Сбросить мой выбор cookie</button>
+<p id="done" style="margin-top:10px;display:none">Готово: выбор удалён. Обновите страницу — баннер появится снова.</p>
+</div>
+
+<h2>4. Вопросы</h2>
+<p>resnichka.tyumen@gmail.com • +7 (3452) 69-99-70. Подробнее об обработке данных — в <a href="privacy.html">политике конфиденциальности</a>.</p>
+<p style="margin-top:18px"><a href="index.html">← Вернуться на главную</a></p>
+</div>
+<script>
+document.getElementById('reset').addEventListener('click',function(){
+  try{ localStorage.removeItem('resh_cookie'); }catch(e){}
+  document.getElementById('done').style.display='block';
+});
+</script>
+</body>
+</html>
